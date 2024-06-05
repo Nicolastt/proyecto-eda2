@@ -1,4 +1,5 @@
 from graph import Graph
+# Proyecto EDA 2 Primer Bimestre
 
 graph = Graph()
 graph.add_node("R1", "Start")
@@ -32,3 +33,4 @@ print()
 
 dfs_component = graph.search_dfs("R1")
 print("DFS Componente:", dfs_component)
+
