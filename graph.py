@@ -48,14 +48,16 @@ class Graph:
 
         return False
 
-    def print_path(self, node, predecessors):
+    @staticmethod
+    def print_path(node, predecessors):
         path = []
         while node:
             path.append(node.id)
             node = predecessors[node]
         print("Path:", " -> ".join(path[::-1]))
 
-    def update_predecessors(self, node, visited, search_queue, predecessors):
+    @staticmethod
+    def update_predecessors(node, visited, search_queue, predecessors):
         for neighbor in node.neighbors:
             if neighbor not in visited and neighbor not in predecessors:
                 search_queue.append(neighbor)
@@ -69,23 +71,24 @@ class Graph:
         visited = {node_id: False for node_id in self.nodes}
         component = []
 
-        def dfs(node_id):
-            node = self.nodes[node_id]
-            component.append(node.id)
-            visited[node_id] = True
-            print(f"Visiting {node.id}, Neighbors: {[neighbor.id for neighbor in node.neighbors]}")
-
-            for neighbor in node.neighbors:
-                if not visited[neighbor.id]:
-                    dfs(neighbor.id)
-                    print(f"Finaliza {neighbor.id}")
-                    print(f"Vuelve a {node.id}")
-                    print()
-
         # Start the DFS from the start node
-        dfs(start_id)
+        self.dfs(start_id, visited, component)
+
         print("DFS Component:", " -> ".join(component))
         return component
+
+    def dfs(self, node_id, visited, component):
+        node = self.nodes[node_id]
+        component.append(node.id)
+        visited[node_id] = True
+        print(f"Visiting {node.id}, Neighbors: {[neighbor.id for neighbor in node.neighbors]}")
+
+        for neighbor in node.neighbors:
+            if not visited[neighbor.id]:
+                self.dfs(neighbor.id, visited, component)
+                print(f"Finaliza {neighbor.id}")
+                print(f"Vuelve a {node.id}")
+                print()
 
     def __str__(self):
         print("------- Graph -------")
