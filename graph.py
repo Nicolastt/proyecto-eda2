@@ -25,18 +25,6 @@ class Graph:
             if not self.directed:
                 destination.add_neighbor(origin)
 
-    def get_nodes(self):
-        return self.nodes.values()
-
-    def __str__(self):
-        result = "Nodes:\n"
-        for node in self.nodes.values():
-            result += str(node) + "\n"
-        result += "Edges:\n"
-        for edge in self.edges:
-            result += str(edge) + "\n"
-        return result
-
     def is_fulfilled(self, node):
         return node.data == "Finish"
 
@@ -93,3 +81,12 @@ class Graph:
         dfs(start_id)
         print("DFS Component:", " -> ".join(component))
         return component
+
+    def __str__(self):
+        result = "Nodes:\n"
+        for node in self.nodes.values():
+            result += str(node) + "\n"
+        result += "Edges:\n"
+        for edge in self.edges:
+            result += str(edge) + "\n"
+        return result
