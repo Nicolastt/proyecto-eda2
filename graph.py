@@ -32,8 +32,7 @@ class Graph:
         if start_id not in self.nodes:
             return False
 
-        search_queue = deque()
-        search_queue.append(self.nodes[start_id])
+        search_queue = deque([self.nodes[start_id]])
         visited = set()
         predecessors = {self.nodes[start_id]: None}
 
@@ -42,19 +41,25 @@ class Graph:
             if node not in visited:
                 if self.is_fulfilled(node):
                     print(f"{node.id} fulfils the condition")
-                    path = []
-                    while node:
-                        path.append(node.id)
-                        node = predecessors[node]
-                    print("Path:", " -> ".join(path[::-1]))
+                    self.print_path(node, predecessors)
                     return True
-                else:
-                    visited.add(node)
-                    for neighbor in node.neighbors:
-                        if neighbor not in visited and neighbor not in predecessors:
-                            search_queue.append(neighbor)
-                            predecessors[neighbor] = node
+                visited.add(node)
+                self.update_predecessors(node, visited, search_queue, predecessors)
+
         return False
+
+    def print_path(self, node, predecessors):
+        path = []
+        while node:
+            path.append(node.id)
+            node = predecessors[node]
+        print("Path:", " -> ".join(path[::-1]))
+
+    def update_predecessors(self, node, visited, search_queue, predecessors):
+        for neighbor in node.neighbors:
+            if neighbor not in visited and neighbor not in predecessors:
+                search_queue.append(neighbor)
+                predecessors[neighbor] = node
 
     def search_dfs(self, start_id):
         if start_id not in self.nodes:
@@ -83,10 +88,11 @@ class Graph:
         return component
 
     def __str__(self):
+        print("------- Graph -------")
         result = "Nodes:\n"
         for node in self.nodes.values():
             result += str(node) + "\n"
-        result += "Edges:\n"
+        result += "\nEdges:\n"
         for edge in self.edges:
             result += str(edge) + "\n"
         return result

@@ -16,8 +16,9 @@ load_graph_from_file('graph_data.txt', graph)
 
 print(graph)
 
+print("-------- BFS --------")
 found_bfs = graph.search_bfs("R1")
 
 print()
-
+print("-------- DFS --------")
 dfs_component = graph.search_dfs("R1")
