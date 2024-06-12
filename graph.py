@@ -5,7 +5,7 @@ from node import Node
 
 
 class Graph:
-    def __init__(self, directed=False):
+    def __init__(self, directed=True):
         self.nodes = {}
         self.edges = []
         self.directed = directed
@@ -25,7 +25,8 @@ class Graph:
             if not self.directed:
                 destination.add_neighbor(origin)
 
-    def is_fulfilled(self, node):
+    @staticmethod
+    def is_fulfilled(node):
         return node.data == "Finish"
 
     def search_bfs(self, start_id):
