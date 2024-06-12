@@ -53,7 +53,7 @@ class Graph:
             node = search_queue.popleft()
             if node not in visited:
                 if self.is_fulfilled(node):
-                    print(f"{node.id} cumple con la condición")
+                    print(f"{node.id} fulfils the condition")
                     path = []
                     while node:
                         path.append(node.id)

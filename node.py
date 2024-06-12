@@ -10,4 +10,3 @@ class Node:
 
     def __str__(self):
         return f"Node({self.id}, {self.data})"
-
